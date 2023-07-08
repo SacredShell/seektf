@@ -14,13 +14,12 @@ enum Commands {
     Upcoming,
 }
 
-#[tokio::main]
-async fn main() {
+fn main() {
     let args = Args::parse();
 
     match &args.command {
         Commands::Upcoming => {
-            upcoming().await.unwrap();
+            upcoming();
         }
     }
 }

@@ -94,7 +94,7 @@ fn green(s: impl std::fmt::Display) -> String {
 
 static LEN: usize = 60;
 
-pub async fn upcoming() -> Result<(), Box<dyn std::error::Error>> {
+pub fn upcoming() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::blocking::Client::builder()
                 .user_agent("Mozilla Firefox")
                 .build()?;

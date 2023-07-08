@@ -1,3 +1,4 @@
+use seektf::*;
 use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
@@ -13,12 +14,13 @@ enum Commands {
     Upcoming,
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
     let args = Args::parse();
 
     match &args.command {
         Commands::Upcoming => {
-            println!("OK");
+            upcoming().await.unwrap();
         }
     }
 }

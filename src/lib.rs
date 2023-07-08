@@ -108,7 +108,7 @@ pub fn upcoming() -> Result<(), Box<dyn std::error::Error>> {
         text.push(format!("┌{:─^1$}┐", title, LEN + extra_bytes(&title)));
 
         let mut duration = format_duration(&event.finish.signed_duration_since(event.start));
-        duration.truncate(8);
+        duration.truncate(7);
         text.push(double_line(&format!("{}: {}", blue("Date"), bold(event.start)),
                               &format!("{}: {}", blue("Duration"), bold(duration))));
 

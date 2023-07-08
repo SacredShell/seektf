@@ -14,20 +14,20 @@ pub struct CtfTeam {
 pub struct CtfEvent {
     title: String,
     ctftime_url: String,
-    id: usize,
+    // id: usize,
     start: DateTime<FixedOffset>,
     finish: DateTime<FixedOffset>,
     logo: Option<String>,
     url: Option<String>,
     format: String,
-    public_votable: bool,
+    // public_votable: bool,
     weight: f32,
-    live_feed: Option<String>,
+    // live_feed: Option<String>,
     restrictions: String,
-    location: Option<String>,
+    // location: Option<String>,
     onsite: bool,
     organizers: Vec<CtfTeam>,
-    ctf_id: usize,
+    // ctf_id: usize,
     participants: usize,
 }
 
@@ -75,23 +75,24 @@ fn double_line (s1: &String, s2: &String) -> String {
 fn blue<S: AsRef<str>>(s: S) -> String {
     format!("{}{}{}", "\x1b[38;2;174;129;255m", s.as_ref(), "\x1b[0m")
 }
-
 fn bold(s: impl std::fmt::Display) -> String {
     format!("{}{}{}", "\x1b[1m", format!("{}", s), "\x1b[0m")
 }
-
 fn pink(s: impl std::fmt::Display) -> String {
     format!("{}{}{}", "\x1b[38;2;249;38;114;1m", format!("{}", s), "\x1b[0m")
 }
-
 fn gray(s: impl std::fmt::Display) -> String {
     format!("{}{}{}", "\x1b[38;2;102;217;239m", format!("{}", s), "\x1b[0m")
 }
-
 fn green(s: impl std::fmt::Display) -> String {
     format!("{}{}{}", "\x1b[38;2;166;226;46m", format!("{}", s), "\x1b[0m")
 }
 
+fn org_len(s: &String) -> String {
+    let org = s;
+
+    if org.len() <= 27 {return org.to_string();} else {return org[..26].to_string();}
+}
 static LEN: usize = 60;
 
 pub fn upcoming() -> Result<(), Box<dyn std::error::Error>> {
@@ -111,7 +112,7 @@ pub fn upcoming() -> Result<(), Box<dyn std::error::Error>> {
         text.push(double_line(&format!("{}: {}", blue("Date"), bold(event.start)),
                               &format!("{}: {}", blue("Duration"), bold(duration))));
 
-        text.push(double_line(&format!("{}: {}", blue("Organizers"), green(&event.organizers[0].name)),
+        text.push(double_line(&format!("{}: {}", blue("Organizers"), green(org_len(&event.organizers[0].name))),
                               &format!("{}: {}", blue("Category"), bold(event.format))));
 
         text.push(double_line(&format!("{}: {}", blue("Restrictions"), bold(event.restrictions)),
